@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_verified')->default(false);
+            $table->integer('verification_code')->nullable();
+            $table->enum('role', ['client', 'freelancer']);
+            $table->foreignId('city_id')->constrained();
             $table->rememberToken();
             $table->timestamps();
         });
