@@ -15,6 +15,10 @@ class Review extends Model
         'freelancer_id'
     ];
 
+    protected $casts = [
+        'rating' => 'float',
+    ];
+
     public function project()
     {
         return $this->belongsTo(Project::class);

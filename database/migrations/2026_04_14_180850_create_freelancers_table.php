@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('phone_number');
             $table->enum('status', ['available', 'busy', 'not_available'])->default('available');
-            $table->string('profile_link')->nullable();
+            $table->json('portfolio_links')->nullable();
+            $table->json('skills_summary')->nullable();
             $table->timestamps();
         });
     }
