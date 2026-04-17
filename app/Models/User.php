@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 // use Database\Factories\UserFactory;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Hash;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * Get the attributes that should be cast.
@@ -67,9 +68,9 @@ class User extends Authenticatable
         return $this->hasMany(Offer::class, 'freelancer_id');
     }
 
-    protected function password() : Attribute {
-        return Attribute::make (
-            set: fn($value) => Hash::make($value),
-        );
-    }
+    // protected function password() : Attribute {
+    //     return Attribute::make (
+    //         set: fn($value) => Hash::make($value),
+    //     );
+    // }
 }
