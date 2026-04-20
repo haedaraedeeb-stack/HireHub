@@ -14,6 +14,17 @@
 
 ---
 
+## 🚀 توثيق الـ API (Insomnia)
+
+لقد قمنا بتجهيز مجموعة كاملة من الطلبات (Requests) لتسهيل تجربة واختبار النظام.
+
+### كيفية الاستخدام:
+1. قم بتحميل ملف التوثيق من الرابط: [Insomnia_2026-04-20.yaml](./api-docs/Insomnia_2026-04-20.yaml)
+2. افتح برنامج **Insomnia**.
+3. اضغط على **Create** ثم اختر **Import**.
+4. اختر **File** وقم بتحديد الملف الذي قمت بتحميله.
+
+
 ## ✨ Core Features
 
 - **User Authentication:** Support for multiple user roles (Freelancer & Client) with secure token management.
