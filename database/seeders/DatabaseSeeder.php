@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             CitySeeder::class,
             UserSeeder::class,
+            SkillSeeder::class,
             FreelancerSeeder::class,
+            TagSeeder::class,
             ProjectSeeder::class,
             OfferSeeder::class,
-            SkillSeeder::class,
-            TagSeeder::class,
             ReviewSeeder::class,
         ]);
     }

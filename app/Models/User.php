@@ -7,11 +7,11 @@ namespace App\Models;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+// use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Hash;
 
 #[Fillable(['name', 'email', 'password', 'role', 'is_verified', 'verification_code', 'city_id' ])]
 #[Hidden(['password', 'remember_token'])]
@@ -67,10 +67,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Offer::class, 'freelancer_id');
     }
-
-    // protected function password() : Attribute {
-    //     return Attribute::make (
-    //         set: fn($value) => Hash::make($value),
-    //     );
-    // }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Models\Api_Log;
+use App\Models\ApiLog;
 class ApiPerformanceLogger
 {
     /**
@@ -18,7 +18,7 @@ class ApiPerformanceLogger
         $startTime = microtime(true);
         $response = $next($request);
         $duration = microtime(true) - $startTime;
-        Api_Log::create([
+        ApiLog::create([
             'user_id' => $request->user()?->id,
             'duration' => $duration,
             'endpoint' => $request->path(),

@@ -27,6 +27,6 @@ class Offer extends Model
 
     public function freelancer()
     {
-        return $this->belongsTo(User::class, 'freelancer_id');
+        return $this->belongsTo(Freelancer::class, 'freelancer_id');
     }
 }

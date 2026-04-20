@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ProjectSeeder extends Seeder
@@ -13,8 +14,8 @@ class ProjectSeeder extends Seeder
      */
 public function run(): void
 {
-    $clientIds = \App\Models\User::where('role', 'client')->pluck('id')->toArray();
-
+    $clientIds = User::where('role', 'client')->pluck('id')->toArray();
+    $tagIds = Tag::pluck('id');
     $projects = [
         [
             'title' => 'E-commerce Mobile App',
@@ -96,11 +97,61 @@ public function run(): void
             'deadline' => now()->addWeeks(4),
             'status' => 'open',
         ],
+        [
+            'title' => 'Managment Hospital',
+            'description' => 'Managment and orgnise.',
+            'budget_type' => 'fixed',
+            'budget' => 2200.00,
+            'deadline' => now()->addWeeks(4),
+            'status' => 'open',
+        ],
+        [
+            'title' => 'Managment School',
+            'description' => 'Managment and orgnise.',
+            'budget_type' => 'fixed',
+            'budget' => 1200.00,
+            'deadline' => now()->addWeeks(4),
+            'status' => 'open',
+        ],
+        [
+            'title' => 'Managment Store',
+            'description' => 'Managment and orgnise.',
+            'budget_type' => 'fixed',
+            'budget' => 1000.00,
+            'deadline' => now()->addWeeks(4),
+            'status' => 'open',
+        ],
+        [
+            'title' => 'Managment Store',
+            'description' => 'Managment and orgnise.',
+            'budget_type' => 'fixed',
+            'budget' => 1000.00,
+            'deadline' => now()->addWeeks(4),
+            'status' => 'open',
+        ],
+        [
+            'title' => 'Managment Store',
+            'description' => 'Managment and orgnise.',
+            'budget_type' => 'fixed',
+            'budget' => 1000.00,
+            'deadline' => now()->addWeeks(4),
+            'status' => 'open',
+        ],
+        [
+            'title' => 'Managment Store',
+            'description' => 'Managment and orgnise.',
+            'budget_type' => 'fixed',
+            'budget' => 1000.00,
+            'deadline' => now()->addWeeks(4),
+            'status' => 'open',
+        ],
     ];
 
     foreach ($projects as $index => $projectData) {
         $projectData['user_id'] = $clientIds[array_rand($clientIds)];
-        Project::create($projectData);
+        $project = Project::create($projectData);
+        $randomTags = $tagIds->random(rand(2, 4))->toArray();
+        $project->tags()->sync($randomTags);
     }
 }
 }

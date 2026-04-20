@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('is_verified')->default(false);
             $table->integer('verification_code')->nullable();
             $table->enum('role', ['client', 'freelancer']);
-            $table->foreignId('city_id')->constrained();
+            $table->foreignId('city_id')->nullable()->constrained();
             $table->rememberToken();
             $table->timestamps();
         });

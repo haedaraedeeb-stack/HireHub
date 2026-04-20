@@ -15,10 +15,10 @@ class Freelancer extends Model
         'image',
         'phone_number',
         'status',
-        'profile_link'
+        'portfolio_links'
         ];
 
-    protected $appends = ['full_name', 'budget', 'review', 'joined_at'];
+    protected $appends = ['full_name', 'review'];
 
     protected $casts = [
         'price_per_hour' => 'decimal:2',
@@ -49,20 +49,31 @@ class Freelancer extends Model
 
     protected function fullName() : Attribute {
         return Attribute::make (
-            get: fn() => ucwords($this->user?->name) ?? 'Unknown Freelancer',
+            get: function () {
+                if ($this->relationLoaded('user') && $this->user) {
+                    return ucwords($this->user->name);
+                }
+                return 'Freelancer';
+            }
         );
     }
 
     protected function image() : Attribute {
         return Attribute::make(
-            get: fn() => $this->attributes['image'] ? asset('storage/' . $this->attributes['image']) : asset('images/photo_2026-04-16_02-01-45.jpg'),
+            get: function ($value) {
+            if (!empty($value)) {
+                return asset('storage/' . $value);
+            }
+            return asset('images/photo_2026-04-16_02-01-45.jpg');
+        }
         );
     }
 
     protected function review() : Attribute {
         return Attribute::make(
             get: function() {
-                $avg = $this->reviews_avg_rating ?? $this->reviews()->avg('rating');                if(!$avg) {
+                $avg = $this->reviews_avg_rating;
+                if ($avg === null) {
                     return "No reviews yet";
                 }
                 return number_format($avg, 1) . " ⭐";
@@ -70,12 +81,12 @@ class Freelancer extends Model
         );
     }
 
-    protected function joined_at() : Attribute {
+    protected function joinedAt() : Attribute {
         return Attribute::make(
-            get: fn() => $this->created_at->diffForHumans(),
+            get: fn() => $this->created_at?$this->created_at->diffForHumans():null,
         );
     }
-    protected function phonenumber(): Attribute
+    protected function phoneNumber(): Attribute
         {
         return Attribute::make(
             set: function ($value) {
@@ -95,7 +106,7 @@ class Freelancer extends Model
         static::addGlobalScope('active_and_verified', function(Builder $builder){
             $builder->whereHas('user', function($query){
                 $query->where('is_verified', true);
-            })->where('status', '!=' , FreelancerStatus::NOT_AVAILABLE);
+            })->where('status' , FreelancerStatus::AVAILABLE);
         });
     }
 
