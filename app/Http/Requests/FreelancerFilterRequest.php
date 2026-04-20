@@ -24,7 +24,7 @@ class FreelancerFilterRequest extends FormRequest
     {
         return [
         'sort_by' => 'sometimes|in:highest_rating,newest,price_low',
-        'skills'  => 'sometimes|array',
+        'skills'  => 'nullable|array',
         'skills.*' => 'string'
         ];
     }

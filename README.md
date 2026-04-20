@@ -1,3 +1,67 @@
+# 🚀 HireHub - Freelance Marketplace API
+
+**HireHub** is a comprehensive backend system built with **Laravel 13**, designed to connect project owners with freelancers in a secure and organized environment. This project emphasizes software engineering best practices, including **SOLID principles** and the **Service-Repository Pattern**.
+
+---
+
+## 🛠 Tech Stack
+
+* **Framework:** Laravel 13.x
+* **Language:** PHP 8.5+
+* **Database:** MySQL / MariaDB
+* **Authentication:** Laravel Sanctum (Token-based)
+* **Architectural Patterns:** Service-Repository Pattern, API Resources, Form Requests.
+
+---
+
+## ✨ Core Features
+
+- **User Authentication:** Support for multiple user roles (Freelancer & Client) with secure token management.
+- **Profile Management:** Detailed freelancer profiles including bio, hourly rates, and skill sets.
+- **Project Management:** Capability to post projects, define budgets (Fixed/Hourly), and set deadlines.
+- **Location & Skill Filtering:** Seamless integration of city-based and skill-based filtering for localized services.
+- **Data Integrity:** Strict validation rules and database constraints to ensure high-quality data entry.
+
+---
+
+## 🚀 Local Installation
+
+Follow these steps to get the project up and running on your local machine:
+
+1. **Clone the Repository:**
+   ```bash
+   git clone [https://github.com/haedaraedeeb-stack/HireHub](https://github.com/haedaraedeeb-stack/HireHub)
+
+   cd HireHub
+
+2. Install Dependencies:
+composer install
+
+3.Environment Setup:
+Copy the example environment file and configure your database credentials.
+
+cp .env.example .env
+
+4. Generate Application Key:
+php artisan key:generate
+
+5.Run Migrations & Seeders:
+(Crucial for populating cities and default skills)
+
+php artisan migrate --seed
+
+6. Start the Server:
+php artisan serve
+
+📂 Architecture & Folder Structure
+This project follows a Clean Architecture approach to ensure scalability and maintainability:
+
+. Services: Contains the core business logic.
+
+. API Resources: Ensures consistent and professional JSON responses.
+
+. Form Requests: Handles complex validation logic outside of the Controllers.
+
 (Phase 3: Performance Optimization)
 تم اكتشاف مشكلة N+1 Queries في مسارات جلب القوائم (مثل قائمة المشاريع). النظام كان يقوم بتنفيذ استعلام منفصل لكل علاقة تابعة، مما يؤدي لبطء شديد مع زيادة البيانات.
 Solutions Implemented

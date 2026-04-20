@@ -10,7 +10,7 @@ class FreelancerService
     {
         public function getAvailableFreelancers($filters) {
         $query = Freelancer::query()
-            ->with(['user', 'skills'])
+            ->with(['user.country','user.city', 'skills'])
             ->withAvg('reviews', 'rating');
 
         if (!empty($filters['skills'])) {
