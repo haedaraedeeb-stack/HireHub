@@ -39,5 +39,13 @@ class UserSeeder extends Seeder
     foreach ($users as $user) {
         User::create($user);
     }
+    User::create([
+    'name' => 'Founder Admin',
+    'email' => 'admin@hirehub.com',
+    'password' => bcrypt('password'),
+    'role' => 'admin',
+    'is_verified' => true
+        ]);
     }
+
 }

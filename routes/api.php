@@ -3,7 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\FreelancerProfileController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -26,5 +28,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('update', [FreelancerProfileController::class, 'update']);
         Route::delete('/', [FreelancerProfileController::class, 'destroy']);
     });
+});
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/offers', [OfferController::class, 'store'])
+        ->middleware('verified_freelancer');
+    Route::get('/offers/{offer}', [OfferController::class, 'show']);
+    Route::patch('/offers/{offer}/status', [OfferController::class, 'updateStatus']);
+    });
+
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+        Route::get('/dashboard/stats', [DashboardController::class, 'index']);
 });

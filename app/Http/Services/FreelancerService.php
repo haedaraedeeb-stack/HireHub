@@ -4,6 +4,8 @@ namespace App\Http\Services;
 use App\Models\Freelancer;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+
 class FreelancerService
     {
         public function getAvailableFreelancers($filters) {
@@ -37,6 +39,8 @@ class FreelancerService
         {
             return $freelancer->load([
                 'user',
+                'user.country',
+                'user.city',
                 'reviews.user',
                 'skills',
             ])->loadAvg('reviews', 'rating')
@@ -47,7 +51,7 @@ class FreelancerService
 
         public function createProfile(User $user, array $data)
         {
-            return \DB::transaction(function () use ($user, $data) {
+            return DB::transaction(function () use ($user, $data) {
             $skills = $data['skills'] ?? [];
             unset($data['skills']);
             if (isset($data['image']) && $data['image'] instanceof UploadedFile) {

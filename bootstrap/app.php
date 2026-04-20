@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(ApiPerformanceLogger::class);
         $middleware->alias([
             'verified_freelancer' => CheckVerifiedFreelancer::class,
+            'is_admin' => \App\Http\Middleware\CheckIsAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

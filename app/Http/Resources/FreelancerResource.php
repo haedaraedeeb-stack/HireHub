@@ -20,6 +20,10 @@ class FreelancerResource extends JsonResource
             'full_name' => $this->full_name,
             'bio' => $this->bio,
             'is_verified' => $this->user?->is_verified,
+            'location' => [
+                'country' => $this->user?->country?->name ?? 'N/A',
+                'city' => $this->user?->city?->name ?? 'N/A',
+            ],
             'image' => $this->image,
             'phone' => $this->phone_number,
             'price_per_hour' => $this->price_per_hour,

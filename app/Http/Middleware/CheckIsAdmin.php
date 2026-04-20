@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckVerifiedFreelancer
+class CheckIsAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,11 @@ class CheckVerifiedFreelancer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->user() && $request->user()->role == 'freelancer' && !$request->user()->is_verified) {
-            return response()->json(['message' => 'Your account is not verified yet'], 403);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return $next($request);
         }
-        return $next($request);
+        return response()->json([
+            'message' => 'Unauthorized. This area is for founders only.'
+        ], 403);
     }
 }
