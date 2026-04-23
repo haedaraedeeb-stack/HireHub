@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 // use Illuminate\Support\Facades\Hash;
 
-#[Fillable(['name', 'email', 'password', 'role', 'is_verified', 'verification_code', 'city_id' ])]
+#[Fillable(['name', 'email', 'password', 'role','verification_code_expires_at', 'is_verified', 'verification_code', 'city_id' ])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -28,7 +28,10 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'verification_code_expires_at' => 'datetime',
             'email_verified_at' => 'datetime',
+            'is_verified' => 'boolean',
+            'verification_code' => 'integer',
             'password' => 'hashed',
         ];
     }
@@ -50,7 +53,7 @@ class User extends Authenticatable
         City::class,
         'id',
         'id',
-        'city_id',               
+        'city_id',
         'country_id'
     );
     }

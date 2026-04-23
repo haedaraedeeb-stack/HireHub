@@ -1,22 +1,22 @@
 <?php
-
 namespace App\Http\Controllers;
 
 abstract class Controller
 {
-    protected function success($result, $message, $code = 200) {
+    protected function success(mixed $data = null, string $message = 'Success', int $code = 200)
+    {
         return response()->json([
             'success' => true,
-            'data' => $result,
             'message' => $message,
-        ],$code);
+            'data'    => $data,
+        ], $code);
     }
 
-    protected function failed($errors = null, $message, $code = 400) {
+    protected function failed(string $message = 'Error', int $code = 400)
+    {
         return response()->json([
             'success' => false,
-            'errors' => $errors,
             'message' => $message,
-        ],$code);
+        ], $code);
     }
 }

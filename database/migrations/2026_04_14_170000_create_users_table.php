@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('verification_code')->nullable();
             $table->enum('role', ['client', 'freelancer', 'admin']);
             $table->foreignId('city_id')->nullable()->constrained();
+            $table->timestamp('verification_code_expires_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

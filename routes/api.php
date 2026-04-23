@@ -12,6 +12,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
+Route::post('/email/verify', [AuthController::class, 'verify']);
+Route::post('/email/resend',  [AuthController::class, 'resend']);
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::apiResource('/projects', ProjectController::class)->except('index');
 });
@@ -40,3 +42,5 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
         Route::get('/dashboard/stats', [DashboardController::class, 'index']);
 });
+
+
