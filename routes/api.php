@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\FreelancerProfileController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
