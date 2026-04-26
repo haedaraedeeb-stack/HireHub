@@ -43,4 +43,8 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
         Route::get('/dashboard/stats', [DashboardController::class, 'index']);
 });
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/projects/{project}/review', [ReviewController::class, 'reviewProject']);
+    Route::post('/projects/{project}/review-freelancer', [ReviewController::class, 'reviewFreelancer']);
+});
 
