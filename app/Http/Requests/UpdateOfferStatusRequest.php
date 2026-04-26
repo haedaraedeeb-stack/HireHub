@@ -13,7 +13,8 @@ class UpdateOfferStatusRequest extends FormRequest
     public function authorize(): bool
     {
         $offer = $this->route('offer');
-        return $this->user()->id === $offer->project->user_id;
+        $project = $offer->project()->withoutGlobalScopes()->first();
+        return $this->user()->id === $project->user_id;
     }
 
     /**

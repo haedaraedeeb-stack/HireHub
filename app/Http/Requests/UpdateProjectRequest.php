@@ -36,6 +36,7 @@ class UpdateProjectRequest extends FormRequest
                 Rule::when($this->budget_type === 'hourly', ['min:5', 'max:100']),
                 Rule::when($this->budget_type === 'fixed', ['min:100']),
             ],
+            'status' => 'nullable|string|in:open,in_progress,closed',
             'deadline' => 'sometimes|date|after:today',
             'tags' => 'nullable|array|max:5',
             'tags.*' => 'string|max:20',

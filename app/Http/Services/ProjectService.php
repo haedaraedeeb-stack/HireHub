@@ -1,18 +1,31 @@
 <?php
 namespace App\Http\Services;
+use App\Jobs\SendProjectPublishedJob;
 use App\Models\Project;
+use App\Models\Tag;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+
 class ProjectService
 {
     public function listOfOpenProjects() {
-            return Project::with([
-                'user' => function($query) {
-                    $query->withAvg('reviewsReceived', 'rating');
-                }
-                ,'tags'
-                ])
-                ->withCount('offers')->paginate(15);
-    }
+    $ids = Cache::tags(['open_projects'])->remember('open_projects', 300, function () {
+        return Project::withCount('offers')
+            ->latest()
+            ->pluck('id')
+            ->toArray();
+    });
+
+    return Project::with([
+        'user' => function($query) {
+            $query->withAvg('reviewsReceived', 'rating');
+        },
+        'tags'
+    ])
+    ->withCount('offers')
+    ->whereIn('id', $ids)
+    ->paginate(15);
+}
 
     public function create($data, $files = null) {
         $data['user_id'] = auth()->id();
@@ -20,7 +33,7 @@ class ProjectService
         unset($data['tags']);
         $project = Project::create(collect($data)->except('tags')->toArray());
         if (!empty($tagNames)) {
-        $tagIds = \App\Models\Tag::whereIn('name', $tagNames)->pluck('id')->toArray();
+        $tagIds = Tag::whereIn('name', $tagNames)->pluck('id')->toArray();
         $project->tags()->sync($tagIds);}
         if($files){
             foreach ($files as $file) {
@@ -28,6 +41,8 @@ class ProjectService
                 $project->attachments()->create(['file_path' => $path]);
             }
         }
+        Cache::tags(['open_projects'])->flush();
+        SendProjectPublishedJob::dispatch($project);
         return $project;
     }
 
@@ -49,7 +64,7 @@ class ProjectService
         unset($data['tags']);
         $project->update(collect($data)->except('tags')->toArray());
         if (!empty($tagNames)) {
-        $tagIds = \App\Models\Tag::whereIn('name', $tagNames)->pluck('id')->toArray();
+        $tagIds = Tag::whereIn('name', $tagNames)->pluck('id')->toArray();
         $project->tags()->sync($tagIds);}
         if($files){
             foreach ($files as $file) {
@@ -57,6 +72,7 @@ class ProjectService
                 $project->attachments()->create(['file_path' => $path]);
             }
         }
+        Cache::tags(['open_projects'])->flush();
         return $project->load(['tags', 'attachments']);
     }
 
@@ -65,6 +81,7 @@ class ProjectService
             Storage::disk('public')->delete($attachment->file_path);
             $attachment->delete();
         }
+        Cache::tags(['open_projects'])->flush();
         return $project->delete();
     }
 

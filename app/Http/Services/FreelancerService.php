@@ -4,15 +4,18 @@ namespace App\Http\Services;
 use App\Models\Freelancer;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class FreelancerService
     {
         public function getAvailableFreelancers($filters) {
+        $page = request('page', 1);
+        $cacheKey = 'available_freelancers_' . md5(json_encode($filters) . '_page_' . $page);
+        $Ids = Cache::tags(['available_freelancers'])->remember($cacheKey, 300, function() use ($filters) {
         $query = Freelancer::query()
             ->with(['user.country','user.city', 'skills'])
             ->withAvg('reviews', 'rating');
-
         if (!empty($filters['skills'])) {
             $skillsArray = is_array($filters['skills']) ? $filters['skills'] : explode(',', $filters['skills']);
             $query->whereHas('skills', function($q) use ($skillsArray) {
@@ -33,7 +36,10 @@ class FreelancerService
                 break;
         }
 
-        return $query->paginate(15);
+        return $query->pluck('id')->toArray();
+        });
+        return Freelancer::with(['user.country','user.city', 'skills'])
+        ->withAvg('reviews', 'rating')->whereIn('id', $Ids)->paginate(15);
     }
         public function getFreelancerDetailes(Freelancer $freelancer)
         {
@@ -64,6 +70,7 @@ class FreelancerService
                     'updated_at' => now(),
                 ]);
             }
+            Cache::tags(['available_freelancers'])->flush();
             return $freelancer->load(['user', 'skills']);
             });
         }
@@ -86,6 +93,7 @@ class FreelancerService
                 $data['image'] = $data['image']->store('images', 'public');
             }
             $freelancer->update($data);
+            Cache::tags(['available_freelancers'])->flush();
             return $freelancer->load(['user', 'skills']);
         });
     }

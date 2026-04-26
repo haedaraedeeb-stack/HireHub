@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Services;
 
+use App\Jobs\SendOfferAcceptedJob;
+use App\Jobs\SendOfferRejectedJob;
 use App\Models\Offer;
 use App\Models\Project;
 use App\Models\User;
@@ -57,18 +59,25 @@ class OfferService
     }
 
     public function updateOfferStatus(Offer $offer, string $newStatus)
-{
+    {
     return DB::transaction(function () use ($offer, $newStatus) {
         $offer->update(['status' => $newStatus]);
         if ($newStatus === 'accepted') {
             $offer->project()->withoutGlobalScope('opened')->update(['status' => 'in_progress']);
-            Offer::where('project_id', $offer->project_id)
-                ->where('id', '!=', $offer->id)
-                ->where('status', 'pending')
-                ->update(['status' => 'rejected']);
+            SendOfferAcceptedJob::dispatch($offer);
+            $rejectedOffers = Offer::where('project_id', $offer->project_id)
+            ->where('id', '!=', $offer->id)
+            ->where('status', 'pending')
+            ->get();
+            foreach ($rejectedOffers as $rejected) {
+            SendOfferRejectedJob::dispatch($rejected);
+            $rejected->update(['status' => 'rejected']);
+            }
         }
-
+        if ($newStatus === 'rejected') {
+            SendOfferRejectedJob::dispatch($offer);
+        }
         return $offer;
-    });
-}
+        });
+    }
 }
