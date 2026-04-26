@@ -61,7 +61,9 @@ class OfferService
     return DB::transaction(function () use ($offer, $newStatus) {
         $offer->update(['status' => $newStatus]);
         if ($newStatus === 'accepted') {
-            $offer->project()->withoutGlobalScope('opened')->update(['status' => 'in_progress']);
+            $offer->project()->withoutGlobalScope('opened')->update
+            (['status' => 'in_progress',
+            'accepted_offer_id' => $offer->id ]);
             Offer::where('project_id', $offer->project_id)
                 ->where('id', '!=', $offer->id)
                 ->where('status', 'pending')

@@ -1,7 +1,9 @@
 <?php
 namespace App\Http\Services;
 use App\Models\Project;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;
+
 class ProjectService
 {
     public function listOfOpenProjects() {
@@ -20,7 +22,7 @@ class ProjectService
         unset($data['tags']);
         $project = Project::create(collect($data)->except('tags')->toArray());
         if (!empty($tagNames)) {
-        $tagIds = \App\Models\Tag::whereIn('name', $tagNames)->pluck('id')->toArray();
+        $tagIds = Tag::whereIn('name', $tagNames)->pluck('id')->toArray();
         $project->tags()->sync($tagIds);}
         if($files){
             foreach ($files as $file) {
@@ -49,7 +51,7 @@ class ProjectService
         unset($data['tags']);
         $project->update(collect($data)->except('tags')->toArray());
         if (!empty($tagNames)) {
-        $tagIds = \App\Models\Tag::whereIn('name', $tagNames)->pluck('id')->toArray();
+        $tagIds = Tag::whereIn('name', $tagNames)->pluck('id')->toArray();
         $project->tags()->sync($tagIds);}
         if($files){
             foreach ($files as $file) {

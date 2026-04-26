@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\FreelancerProfileController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -41,6 +42,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
         Route::get('/dashboard/stats', [DashboardController::class, 'index']);
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/projects/{project}/review', [ReviewController::class, 'reviewProject']);
+    Route::post('/projects/{project}/review-freelancer', [ReviewController::class, 'reviewFreelancer']);
 });
 
 
