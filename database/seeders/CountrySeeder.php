@@ -20,7 +20,7 @@ class CountrySeeder extends Seeder
             ['name' => 'Germany'],
             ['name' => 'Spain'],
             ['name' => 'Italy'],
-            ['name' => 'Belgium'],
+            ['name' => 'Portogal'],
             ['name' => 'India'],
             ['name' => 'Japan'],
             ['name' => 'China']

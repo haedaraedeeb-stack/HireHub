@@ -16,31 +16,31 @@ class ReviewSeeder extends Seeder
      */
     public function run(): void
     {
-        $projects = Project::where('status', 'completed')->get();
-        $freelancers = User::where('role', 'freelancer')->get();
-        $clients = User::where('role', 'client')->get();
+        $projects = Project::whereIn('status', ['closed', 'in_progress'])->get();
 
         $comments = [
-        "Excellent work! Very professional and delivered on time.",
-        "Great communication and high-quality results. Highly recommended.",
-        "Good experience overall, though we had a minor delay in the deadline.",
-        "Very creative approach to the problem. Will definitely hire again!",
-        "Perfect execution of the requirements. Thank you!"
-    ];
+            "Excellent work! Very professional and delivered on time.",
+            "Great communication and high-quality results. Highly recommended.",
+            "Good experience overall, though we had a minor delay in the deadline.",
+            "Very creative approach to the problem. Will definitely hire again!",
+            "Perfect execution of the requirements. Thank you!"
+        ];
 
-    foreach ($projects as $project) {
-        $freelancerId = $project->accepted_offer_id
-            ? Offer::find($project->accepted_offer_id)->freelancer_id
-            : User::where('role', 'freelancer')->first()->id;
+        foreach ($projects as $project) {
+            $acceptedOffer = Offer::where('project_id', $project->id)
+                                ->where('status', 'accepted')
+                                ?? Offer::where('project_id', $project->id)->first();
 
-        Review::create([
-            'project_id'    => $project->id,
-            'client_id'     => $project->user_id,
-            'freelancer_id' => $freelancerId,
-            'rating'        => rand(0, 5),
-            'comment'       => $comments[array_rand($comments)],
-            'type'          => 'project',         
-            ]);
+            if ($acceptedOffer) {
+                Review::create([
+                    'project_id'    => $project->id,
+                    'client_id'     => $project->user_id,
+                    'freelancer_id' => $acceptedOffer->freelancer_id,
+                    'rating'        => rand(3, 5),
+                    'comment'       => $comments[array_rand($comments)],
+                    'type'          => 'project',
+                ]);
+            }
         }
     }
 }
