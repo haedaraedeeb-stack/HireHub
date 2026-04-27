@@ -11,26 +11,29 @@ class ReviewController extends Controller
 {
     public function __construct(private ReviewService $reviewService) {}
 
-    public function reviewProject(StoreReviewProject $request, Project $project)
+    public function reviewProject(StoreReviewProject $request, $projectId)
     {
+        $project = Project::withoutGlobalScopes()->findOrFail($projectId);
         $data = $request->validated();
-        try{
-        $review = $this->reviewService->reviewProject($project,$data);
-        return $this->success($review, 'Review added successfully.', 201);
-        }catch (\Exception $e) {
-        return $this->failed($e->getMessage(), $e->getCode() ?: 400);
+
+        try {
+            $review = $this->reviewService->reviewProject($project, $data);
+            return $this->success($review, 'Review added successfully.', 201);
+        } catch (\Exception $e) {
+            return $this->failed($e->getMessage(), $e->getCode() ?: 400);
         }
     }
 
-    public function reviewFreelancer(StoreReviewFreelancer $request, Project $project)
+    public function reviewFreelancer(StoreReviewFreelancer $request, $projectId)
     {
+        $project = Project::withoutGlobalScopes()->findOrFail($projectId);
         $data = $request->validated();
-        try{
-        $review = $this->reviewService->reviewFreelancer(
-            $project,$data);
-        return $this->success($review, 'Freelancer reviewed successfully.', 201);
+
+        try {
+            $review = $this->reviewService->reviewFreelancer($project, $data);
+            return $this->success($review, 'Freelancer reviewed successfully.', 201);
         } catch (\Exception $e) {
-        return $this->failed($e->getMessage(), $e->getCode() ?: 400);
+            return $this->failed($e->getMessage(), $e->getCode() ?: 400);
         }
     }
 }

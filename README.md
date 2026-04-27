@@ -1,107 +1,259 @@
-# 🚀 HireHub - Freelance Marketplace API
+# 💼 HireHub — Freelance Marketplace API
 
-**HireHub** is a comprehensive backend system built with **Laravel 13**, designed to connect project owners with freelancers in a secure and organized environment. This project emphasizes software engineering best practices, including **SOLID principles** and the **Service-Repository Pattern**.
+> منصة عمل حر عربية مبنية بـ Laravel — تربط أصحاب المشاريع بالمستقلين بشكل آمن ومنظم.
 
 ---
 
 ## 🛠 Tech Stack
 
-* **Framework:** Laravel 13.x
-* **Language:** PHP 8.5+
-* **Database:** MySQL / MariaDB
-* **Authentication:** Laravel Sanctum (Token-based)
-* **Architectural Patterns:** Service-Repository Pattern, API Resources, Form Requests.
+| التقنية | التفاصيل |
+|---|---|
+| Framework | Laravel 13.x |
+| Language | PHP 8.5+ |
+| Database | MySQL / MariaDB |
+| Authentication | Laravel Sanctum (Token-based) |
+| Cache | Redis (Cache Tags) |
+| Queue | Database Driver |
+| Architecture | Service Pattern + API Resources + Form Requests |
 
 ---
 
-## 🚀 توثيق الـ API (Insomnia)
+## 🚀 تثبيت المشروع محلياً
 
-لقد قمنا بتجهيز مجموعة كاملة من الطلبات (Requests) لتسهيل تجربة واختبار النظام.
+```bash
+# 1. استنساخ المشروع
+git clone https://github.com/haedaraedeeb-stack/HireHub
+cd HireHub
 
-### كيفية الاستخدام:
-1. قم بتحميل ملف التوثيق من الرابط: [Insomnia_2026-04-20.yaml](./api-docs/Insomnia_2026-04-20.yaml)
-2. افتح برنامج **Insomnia**.
-3. اضغط على **Create** ثم اختر **Import**.
-4. اختر **File** وقم بتحديد الملف الذي قمت بتحميله.
-
-
-## ✨ Core Features
-
-- **User Authentication:** Support for multiple user roles (Freelancer & Client) with secure token management.
-- **Profile Management:** Detailed freelancer profiles including bio, hourly rates, and skill sets.
-- **Project Management:** Capability to post projects, define budgets (Fixed/Hourly), and set deadlines.
-- **Location & Skill Filtering:** Seamless integration of city-based and skill-based filtering for localized services.
-- **Data Integrity:** Strict validation rules and database constraints to ensure high-quality data entry.
-
----
-
-## 🚀 Local Installation
-
-Follow these steps to get the project up and running on your local machine:
-
-1. **Clone the Repository:**
-   ```bash
-   git clone [https://github.com/haedaraedeeb-stack/HireHub](https://github.com/haedaraedeeb-stack/HireHub)
-
-   cd HireHub
-
-2. Install Dependencies:
+# 2. تثبيت الاعتماديات
 composer install
 
-3.Environment Setup:
-Copy the example environment file and configure your database credentials.
-
+# 3. إعداد البيئة
 cp .env.example .env
-
-4. Generate Application Key:
 php artisan key:generate
 
-5.Run Migrations & Seeders:
-(Crucial for populating cities and default skills)
+# 4. إعداد قاعدة البيانات في .env
+DB_DATABASE=hirehub_db
+DB_USERNAME=root
+DB_PASSWORD=
 
+# 5. تشغيل الـ Migrations والـ Seeders
 php artisan migrate --seed
 
-6. Start the Server:
+# 6. إنشاء رابط التخزين
+php artisan storage:link
+
+# 7. إنشاء جدول الـ Queue
+php artisan queue:table
+php artisan migrate
+
+# 8. تشغيل الـ Server
 php artisan serve
 
-📂 Architecture & Folder Structure
-This project follows a Clean Architecture approach to ensure scalability and maintainability:
+# 9. تشغيل الـ Queue Worker (terminal منفصل)
+php artisan queue:work
+```
 
-. Services: Contains the core business logic.
+---
 
-. API Resources: Ensures consistent and professional JSON responses.
+## 📬 توثيق الـ API
 
-. Form Requests: Handles complex validation logic outside of the Controllers.
+مجموعة Insomnia جاهزة للاستخدام:
 
-(Phase 3: Performance Optimization)
-تم اكتشاف مشكلة N+1 Queries في مسارات جلب القوائم (مثل قائمة المشاريع). النظام كان يقوم بتنفيذ استعلام منفصل لكل علاقة تابعة، مما يؤدي لبطء شديد مع زيادة البيانات.
-Solutions Implemented
-1- منع التحميل الكسول (Prevent Lazy Loading): تم تفعيل خاصية حماية النظام في بيئة التطوير لمنع أي استعلام N+1 مستقبلاً.
-2- لتحميل المسبق (Eager Loading): تم استخدام دالة with() لجلب العلاقات (مثل user) في استعلامين فقط بدلاً من 51 استعلاماً.
-3- استخدام withCount: بدلاً من تحميل العلاقات كاملة لعدّها، تم استخدام withCount لجلب الأعداد مباشرة من قاعدة البيانات بأقل استهلاك للذاكرة
+1. حمّل الملف: [`api-docs/Insomnia_2026-04-20.yaml`](./api-docs/Insomnia_2026-04-20.yaml)
+2. افتح Insomnia → **Create** → **Import** → اختر الملف
 
-EXAMPLE:
-with : lazy loading
-> Project::limit(5)->get()->map(fn($p) => dump($p->user->name))
-Response
->Illuminate\Database\LazyLoadingViolationException  Attempted to lazy load [user] on model [App\Models\Project] but lazy loading is disabled
+---
 
-with : eager loading 
->> Project::with("user")->limit(5)->get()->map(fn($p) => dump($p->user->name))
-Response
->"Omar Salem" // vendor\psy\psysh\src\ExecutionLoopClosure.php(55) : eval()'d code:1
-"Laila Hassan" // vendor\psy\psysh\src\ExecutionLoopClosure.php(55) : eval()'d code:1
-"Robert Fox" // vendor\psy\psysh\src\ExecutionLoopClosure.php(55) : eval()'d code:1
-"Robert Fox" // vendor\psy\psysh\src\ExecutionLoopClosure.php(55) : eval()'d code:1
-"Elena Rossi" // vendor\psy\psysh\src\ExecutionLoopClosure.php(55) : eval()'d code:1
-= Illuminate\Support\Collection {#8436
-    all: [
-      "Omar Salem",
-      "Laila Hassan",
-      "Robert Fox",
-      "Robert Fox",
-      "Elena Rossi",
-    ],
-  }
+## 🌐 API Endpoints
 
->
+### Auth
+| Method | Endpoint | الوصف |
+|---|---|---|
+| POST | `/api/register` | تسجيل مستخدم جديد |
+| POST | `/api/login` | تسجيل الدخول |
+| POST | `/api/logout` | تسجيل الخروج |
+| POST | `/api/email/verify` | تفعيل الحساب بالـ OTP |
+| POST | `/api/email/resend` | إعادة إرسال كود التفعيل |
+
+### Projects
+| Method | Endpoint | الوصف |
+|---|---|---|
+| GET | `/api/projects` | قائمة المشاريع المفتوحة |
+| POST | `/api/projects` | إنشاء مشروع جديد |
+| GET | `/api/projects/{id}` | تفاصيل مشروع |
+| PUT | `/api/projects/{id}` | تعديل مشروع |
+| DELETE | `/api/projects/{id}` | حذف مشروع |
+| POST | `/api/projects/{id}/review` | إضافة review للمشروع |
+| POST | `/api/projects/{id}/review-freelancer` | إضافة review للفريلانسر |
+
+### Freelancers
+| Method | Endpoint | الوصف |
+|---|---|---|
+| GET | `/api/freelancers` | قائمة المستقلين المتاحين |
+| GET | `/api/freelancers/{id}` | تفاصيل مستقل |
+| POST | `/api/freelancers/profile` | إنشاء profile |
+| PUT | `/api/freelancers/profile` | تعديل profile |
+
+### Offers
+| Method | Endpoint | الوصف |
+|---|---|---|
+| POST | `/api/offers` | تقديم عرض |
+| GET | `/api/offers/{id}` | تفاصيل عرض |
+| PATCH | `/api/offers/{id}/status` | تغيير حالة العرض |
+
+### Stats (Admin only)
+| Method | Endpoint | الوصف |
+|---|---|---|
+| GET | `/api/stats` | إحصائيات المنصة |
+
+---
+
+## 📂 هيكل المشروع
+
+```
+app/
+├── Http/
+│   ├── Controllers/     ← استقبال الـ requests فقط
+│   ├── Services/        ← كل الـ business logic
+│   ├── Requests/        ← validation وauthorization
+│   ├── Resources/       ← تنسيق الـ JSON responses
+│   └── Middleware/      ← حماية الـ routes
+├── Models/              ← Eloquent models + relations
+├── Jobs/                ← Background jobs
+└── Notifications/       ← Email notifications
+```
+
+---
+
+## 🏗 القرارات المعمارية
+
+### 1. Service Pattern
+فصل الـ business logic عن الـ Controller — كل Controller يفوّض للـ Service المختص. هاد يجعل الكود قابلاً للاختبار والتوسعة.
+
+### 2. Polymorphic Relations
+استُخدمت للـ Attachments (مشاريع وعروض) — بدل جدولين منفصلين، جدول واحد يخدم الاثنين.
+
+### 3. Global Scopes
+- `Project` → يعرض `open` فقط افتراضياً
+- `Freelancer` → يعرض `verified + available` فقط افتراضياً
+
+### 4. Email Verification (OTP)
+بدل الـ Laravel built-in (رابط)، استُخدم OTP مخصص أنسب للـ Mobile API.
+
+---
+
+## ⚡ Phase 3: الأداء — N+1 Problem
+
+### المشكلة
+بدون Eager Loading، كل مشروع يحتاج query منفصلة:
+
+| عدد المشاريع | عدد الـ Queries |
+|---|---|
+| 5 | 6 |
+| 50 | 51 |
+| 100 | 101 |
+
+### الإثبات
+```php
+// تفعيل الحماية في AppServiceProvider
+Model::preventLazyLoading(!app()->isProduction());
+
+// محاولة Lazy Loading → Exception فوري
+Project::limit(5)->get()->each(fn($p) => $p->user->name);
+// LazyLoadingViolationException: Attempted to lazy load [user]
+```
+
+### الحل
+```php
+// Eager Loading → 2 queries ثابتة
+Project::with('user')->limit(5)->get();
+count(DB::getQueryLog()); // = 2 ✅
+```
+
+### النتيجة
+```
+قبل: 51 query لـ 50 مشروع
+بعد: 2 queries ثابتة بغض النظر عن العدد
+التحسن: 96%
+```
+
+### أدوات إضافية
+- `withCount()` بدل تحميل العلاقة كاملة لعدّها
+- `Cache` مع Redis Tags لتخزين IDs وتقليل الضغط على DB
+
+---
+
+## 🗄 Phase 4: Cache & Queue
+
+### Cache Strategy
+```
+open_projects         → Cache::tags(['open_projects'])    → 5 دقائق
+available_freelancers → Cache::tags(['available_freelancers']) → 5 دقائق
+```
+
+**Cache Invalidation:**
+- عند إنشاء مشروع → `Cache::tags(['open_projects'])->flush()`
+- عند تعديل profile → `Cache::tags(['available_freelancers'])->flush()`
+
+**ملاحظة:** Cache Tags تتطلب Redis. في بيئة التطوير يمكن استخدام `database` driver مع مفاتيح عادية.
+
+### Queue Jobs
+| Job | الحدث | الهدف |
+|---|---|---|
+| `SendProjectPublishedJob` | نشر مشروع | إشعار صاحب المشروع |
+| `SendOfferAcceptedJob` | قبول عرض | إشعار الفريلانسر |
+| `SendOfferRejectedJob` | رفض عرض | إشعار الفريلانسر |
+| `RecalculateFreelancerRatingJob` | إضافة review | إعادة حساب متوسط التقييم |
+
+**Failed Jobs Protection:**
+```php
+public int $tries = 3;    // 3 محاولات
+public int $backoff = 60; // انتظر 60 ثانية بين كل محاولة
+```
+
+**Atomic Lock** — يمنع التداخل بحساب التقييم:
+```php
+$lock = Cache::lock('rating_freelancer_' . $this->freelancer->id, 10);
+```
+
+---
+
+## 🔐 الأمان
+
+- كلمات المرور مشفرة دائماً بـ Mutator — بغض النظر عمن كتب الكود
+- `is_verified` — الفريلانسر لا يتفاعل بالمنصة قبل التفعيل
+- Form Requests — الـ authorization والـ validation معزولان عن الـ Controller
+- Sanctum Tokens — كل طلب يحتاج Bearer token
+
+---
+
+## 🌍 Environment Variables المهمة
+
+```env
+# Database
+DB_CONNECTION=mysql
+DB_DATABASE=hirehub_db
+
+# Cache
+CACHE_STORE=redis
+
+# Queue
+QUEUE_CONNECTION=database
+
+# Mail (Mailtrap للتطوير)
+MAIL_MAILER=log
+MAIL_FROM_ADDRESS=noreply@hirehub.com
+
+# Redis
+REDIS_CLIENT=predis
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+```
+
+---
+
+## 👨‍💻 المطور
+
+**Haedara deeb**
+> Built with ❤️ for the HireHub challenge

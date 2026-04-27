@@ -18,6 +18,7 @@ class RecalculateFreelancerRatingJob implements ShouldQueue
 
     public function handle(): void
     {
+        // $review->freelancer->load('freelancer');
         $lock = Cache::lock('rating_freelancer_' . $this->freelancer->id, 10);
 
         if ($lock->get()) {
