@@ -176,6 +176,12 @@ count(DB::getQueryLog()); // = 2 ✅
 
 ## 🔐 الأمان
 
+## Email Verification (Development Mode)
+For testing purposes, the application is configured to use the `log` driver for emails. 
+You can find the verification code/link by checking the Laravel log file:
+- **Location:** `storage/logs/laravel.log`
+
+Simply open this file after triggering a verification email to find the generated code.
 - كلمات المرور مشفرة دائماً بـ Mutator — بغض النظر عمن كتب الكود
 - `is_verified` — الفريلانسر لا يتفاعل بالمنصة قبل التفعيل
 - Form Requests — الـ authorization والـ validation معزولان عن الـ Controller
@@ -190,9 +196,6 @@ count(DB::getQueryLog()); // = 2 ✅
 DB_CONNECTION=mysql
 DB_DATABASE=hirehub_db
 
-# Mail (Mailtrap للتطوير)
-MAIL_MAILER=log
-MAIL_FROM_ADDRESS=noreply@hirehub.com
 
 ```
 ---
