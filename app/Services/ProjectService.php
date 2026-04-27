@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Services;
+namespace App\Services;
 use App\Jobs\SendProjectPublishedJob;
 use App\Models\Project;
 use App\Models\Tag;
