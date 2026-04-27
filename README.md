@@ -60,7 +60,7 @@ php artisan queue:work
 
 مجموعة Insomnia جاهزة للاستخدام:
 
-1. حمّل الملف: [`api-docs/Insomnia_2026-04-20.yaml`](./api-docs/Insomnia_2026-04-20.yaml)
+1. حمّل الملف: [`api-docs/HireHub_API.yaml`](./api-docs/HireHub_API.yaml)
 2. افتح Insomnia → **Create** → **Import** → اختر الملف
 
 ---

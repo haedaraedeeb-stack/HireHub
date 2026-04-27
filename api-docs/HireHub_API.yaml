@@ -12,7 +12,7 @@ collection:
     meta:
       id: req_a2bef9b78eb84d668b0fb403c9622d9d
       created: 1776546367622
-      modified: 1776707676724
+      modified: 1777300886820
       isPrivate: false
       description: ""
       sortKey: -1776546367622
@@ -21,8 +21,8 @@ collection:
       mimeType: application/json
       text: |-
         {
-            "name": "Haedara Deeb",
-            "email": "jjjhfjhrrrjuhh@gmail.com",
+            "name": "aws aboud",
+            "email": "awsawsaws@gmail.com",
             "password": "password123",
             "password_confirmation": "password123",
             "role": "freelancer"
@@ -88,16 +88,16 @@ collection:
     meta:
       id: req_26d86c17538941a0ad73fe2bf1ba349c
       created: 1776549735018
-      modified: 1776707727714
+      modified: 1777304475005
       isPrivate: false
       description: ""
-      sortKey: -1776549735018
+      sortKey: -1776578197547
     method: POST
     body:
       mimeType: application/json
       text: |-
         {
-        		"email": "jjjhfjhrrrjuhh@gmail.com",
+        		"email": "jjjhfhjhrrrjuhh@gmail.com",
             "password": "password123"
         }
     parameters:
@@ -148,7 +148,7 @@ collection:
     meta:
       id: req_d78d040c6f7a495abe5c1c20ef9de720
       created: 1776608962295
-      modified: 1776610816173
+      modified: 1777300807968
       isPrivate: false
       description: ""
       sortKey: -1776608962295
@@ -173,7 +173,7 @@ collection:
         disabled: false
     authentication:
       type: bearer
-      token: 2|Ooo9FvIx2kHNo422hCPtFTsY5IGfamE704Xy43mz63ab746e
+      token: 1|czkhz9ItDhInjQrQbsTiuvpPCDCFgFmX1TgsyVhw01483610
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -182,12 +182,12 @@ collection:
         send: true
         store: true
       rebuildPath: true
-  - url: http://127.0.0.1:8000/api/projects/18
+  - url: http://127.0.0.1:8000/api/projects/17
     name: Update project
     meta:
       id: req_0d84184259fe430697910fee2681fb3b
       created: 1776610580655
-      modified: 1776611679603
+      modified: 1777027087435
       isPrivate: false
       description: ""
       sortKey: -1776610580655
@@ -197,7 +197,8 @@ collection:
       text: >-
         {
         	 "title": "Build a Professional E-commerce Mobile Application for Fashion Store jjjjjjjjjjjj",
-        	"budget": 2500.00
+        	"budget": 2500.00,
+        	"status": "closed"
         }
     headers:
       - name: Content-Type
@@ -212,7 +213,7 @@ collection:
         disabled: false
     authentication:
       type: bearer
-      token: 3|CiwfzPXesYlXAPie4MhN4pOK7CrALhPoVzjtEpSr4942a1cf
+      token: 1|ndoLbErMZyOezhSDAYiYibKKXhWyPw7nnLypbRyMf968c077
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -279,12 +280,12 @@ collection:
         send: true
         store: true
       rebuildPath: true
-  - url: http://127.0.0.1:8000/api/freelancers/1
+  - url: http://127.0.0.1:8000/api/freelancers/11
     name: Get freelancerdeatiales
     meta:
       id: req_4eedab8b4f0c462b89dce03da32ec6c9
       created: 1776627958081
-      modified: 1776695236927
+      modified: 1776949965772
       isPrivate: false
       description: ""
       sortKey: -1776627958081
@@ -316,7 +317,7 @@ collection:
     meta:
       id: req_38e50f4849564a0e86e36e72addca800
       created: 1776634709918
-      modified: 1776693764283
+      modified: 1777302371766
       isPrivate: false
       description: ""
       sortKey: -1776634709918
@@ -353,7 +354,7 @@ collection:
         disabled: false
     authentication:
       type: bearer
-      token: 2|10sUnA6c6HXgQpONu3AIuMXBm5mUjjW6Uou9PRkv26293195
+      token: 2|fEQdkecXRysazHcCpM6Z263TmJyxsm4SwfnBLyzkd2556fc5
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -454,7 +455,7 @@ collection:
     meta:
       id: req_82d3042ab3cd42899c01c321a7382c5a
       created: 1776683170602
-      modified: 1776683880725
+      modified: 1777304252015
       isPrivate: false
       description: ""
       sortKey: -1776683170602
@@ -463,7 +464,7 @@ collection:
       mimeType: application/json
       text: >-
         {
-            "project_id": 1,
+            "project_id": 51,
             "price": 350.50,
             "delivery_days": 5,
             "letter": "اhi i am reading ypur project details and i like it and i want to startijuheriudhgidsjvjdskvnkefndevjnefkdnavkfedabnkd with you."
@@ -481,7 +482,7 @@ collection:
         disabled: false
     authentication:
       type: bearer
-      token: 2|t9e6ui29ygAoV7gTiRyE1Ot4tY3WI0g79RiOnOWk4dde57ae
+      token: 2|fEQdkecXRysazHcCpM6Z263TmJyxsm4SwfnBLyzkd2556fc5
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -490,12 +491,12 @@ collection:
         send: true
         store: true
       rebuildPath: true
-  - url: http://127.0.0.1:8000/api/offers/51/status
+  - url: http://127.0.0.1:8000/api/offers/101/status
     name: accept the offer
     meta:
       id: req_610c61fc04f147ae8d71a1f0e05c84e4
       created: 1776685109397
-      modified: 1776685516155
+      modified: 1777304499853
       isPrivate: false
       description: ""
       sortKey: -1776685109397
@@ -519,7 +520,7 @@ collection:
         disabled: false
     authentication:
       type: bearer
-      token: 3|i568qux9y9My5xMlfh8pk21nznjDYo3Aln4PTTMRfd143c7c
+      token: 3|bJKyhStMPuFzgzuCuAalBSaPT46YJyCLFTIyL9sgd3eba4e9
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -603,6 +604,239 @@ collection:
         value: application/json
         description: ""
         disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://127.0.0.1:8000/api/email/verify
+    name: "failed vrefied by time "
+    meta:
+      id: req_3394b6aa30464d6791b85604ab810e2f
+      created: 1776947168955
+      modified: 1776947279612
+      isPrivate: false
+      description: ""
+      sortKey: -1776947168955
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"code": 598581
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    authentication:
+      type: bearer
+      token: 4|WSbgpaXEXFAsRlgswus13LGkljy5sLQh1PFy74ds163b3823
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://127.0.0.1:8000/api/email/resend
+    name: resend verify code
+    meta:
+      id: req_a6991aaafb3c403a9b818f01446a51ab
+      created: 1776947780444
+      modified: 1776947850720
+      isPrivate: false
+      description: ""
+      sortKey: -1776947780444
+    method: POST
+    headers:
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    authentication:
+      type: bearer
+      token: 4|WSbgpaXEXFAsRlgswus13LGkljy5sLQh1PFy74ds163b3823
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://127.0.0.1:8000/api/email/verify
+    name: verify with sccuess
+    meta:
+      id: req_427677b99ca4466998d4134cf082dcd0
+      created: 1776947910303
+      modified: 1777300997311
+      isPrivate: false
+      description: ""
+      sortKey: -1776947910303
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"code": 633826
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    authentication:
+      type: bearer
+      token: 2|fEQdkecXRysazHcCpM6Z263TmJyxsm4SwfnBLyzkd2556fc5
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://127.0.0.1:8000/api/offers/25/status
+    name: rejected offer
+    meta:
+      id: req_c8c5858efe384aa18d566d6de9973aea
+      created: 1777192214499
+      modified: 1777192536258
+      isPrivate: false
+      description: ""
+      sortKey: -1777192214499
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"status": "rejected"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+      - name: Accept
+        value: application/json
+        description: ""
+        disabled: false
+    authentication:
+      type: bearer
+      token: 5|3ELYt8pJifQrmlXFu29FX9jx1sEogbW39fD4aCj4e68e2a37
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: ""
+    name: "add review on closed project "
+    meta:
+      id: req_2a9053aeea164b76bdd7e48b5f04be90
+      created: 1777202279843
+      modified: 1777231392676
+      isPrivate: false
+      description: ""
+      sortKey: -1777202279843
+    method: POST
+    headers:
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://127.0.0.1:8000/api/projects/5/review-freelancer
+    name: add review on  project belong to another client
+    meta:
+      id: req_e74aaea2e69543f59f7bbf7bb8f080c7
+      created: 1777231383747
+      modified: 1777232900360
+      isPrivate: false
+      description: ""
+      sortKey: -1777231383747
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"rating": 3,
+        	"comment": "not bad"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+      - name: ""
+        value: application/json
+        description: ""
+        disabled: false
+    authentication:
+      type: bearer
+      token: 5|3ELYt8pJifQrmlXFu29FX9jx1sEogbW39fD4aCj4e68e2a37
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://127.0.0.1:8000/api/projects/51/review-freelancer
+    name: "add review on your project "
+    meta:
+      id: req_45468d80e6564685bfd2f629db5758e5
+      created: 1777232694780
+      modified: 1777305277365
+      isPrivate: false
+      description: ""
+      sortKey: -1777232694780
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"rating": 3,
+        	"comment": "not bad"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+      - name: Accept
+        value: application/json
+        description: ""
+        disabled: false
+    authentication:
+      type: bearer
+      token: 3|bJKyhStMPuFzgzuCuAalBSaPT46YJyCLFTIyL9sgd3eba4e9
     settings:
       renderRequestBody: true
       encodeUrl: true
