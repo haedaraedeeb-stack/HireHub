@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Services;
+namespace App\Services;
 use App\Models\Project;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;

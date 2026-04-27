@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\Models\Offer;
 use App\Models\Project;

@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewFreelancer;
 use App\Http\Requests\StoreReviewProject;
-use App\Http\Services\ReviewService;
+use App\Services\ReviewService;
 use App\Models\Project;
 use Illuminate\Http\Request;
 

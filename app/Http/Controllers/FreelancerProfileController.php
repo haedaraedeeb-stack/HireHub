@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFreelancerRequest;
 use App\Http\Requests\UpdateFreelancerRequest;
 use App\Http\Resources\FreelancerResource;
-use App\Http\Services\FreelancerService;
+use App\Services\FreelancerService;
 use App\Models\Freelancer;
 use Illuminate\Http\Request;
 
